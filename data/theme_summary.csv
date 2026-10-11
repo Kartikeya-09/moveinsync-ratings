@@ -1,0 +1,16 @@
+t,low_reviews,thumbs_up,share_of_1_2_star,uplift_if_all_become_5star,uplift_realistic_half_become_4star
+generic_no_detail,327,2,0.193,0.053,0.02
+crash_slow_not_opening,316,142,0.186,0.051,0.019
+untagged_other,273,28,0.161,0.045,0.017
+feature_ui_gap,237,168,0.14,0.039,0.014
+booking_scheduling_fail,230,171,0.136,0.038,0.014
+tracking_eta_wrong,150,117,0.088,0.024,0.009
+support_unresponsive,127,80,0.075,0.021,0.008
+login_otp_not_received,123,37,0.073,0.02,0.008
+cab_late_noshow,119,123,0.07,0.019,0.007
+session_logout_loop,108,73,0.064,0.018,0.007
+routing_pickup_time,96,35,0.057,0.016,0.006
+driver_conduct_safety,74,62,0.044,0.012,0.005
+notification_rating_spam,64,58,0.038,0.011,0.004
+forced_checks_permissions,20,19,0.012,0.003,0.001
+noshow_policy_penalty,5,2,0.003,0.001,0.0

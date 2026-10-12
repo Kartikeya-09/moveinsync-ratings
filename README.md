@@ -1,7 +1,9 @@
 # MoveInSync Play Store ratings: why they sit where they do, and what to fix first
 
 **Live dashboard:** [https://kartikeya-09.github.io/moveinsync-ratings/]
+
 **Recommendation (PDF):** [https://drive.google.com/file/d/1-kSfWfvtEFKJ3ylBPrtLDS9isZtvn9qD/view?usp=drive_link] (Word version: `docs/MoveInSync_Ratings_Recommendation.docx`)
+
 **Demo video:** [https://www.loom.com/share/fbc70d0e98294c249cea1358f4832c82]
 
 ## The answer in four lines

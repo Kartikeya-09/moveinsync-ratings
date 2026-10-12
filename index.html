@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>MoveInSync Play Store ratings: why and what to fix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #f5f8f8;
+        --ink: #13262b;
+        --mut: #587077;
+        --line: #d3dedf;
+        --card: #fff;
+        --app: #1d6f78;
+        --platform: #4d5fb0;
+        --ops: #b3641a;
+        --bad: #b3261e;
+        --warn: #9a6a00;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0f1b1e;
+          --ink: #e6eff0;
+          --mut: #93aab0;
+          --line: #27393d;
+          --card: #152327;
+          --app: #4fb3bd;
+          --platform: #8c9be0;
+          --ops: #e0975a;
+          --bad: #ff8a80;
+          --warn: #e6b84a;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0f1b1e;
+        --ink: #e6eff0;
+        --mut: #93aab0;
+        --line: #27393d;
+        --card: #152327;
+        --app: #4fb3bd;
+        --platform: #8c9be0;
+        --ops: #e0975a;
+        --bad: #ff8a80;
+        --warn: #e6b84a;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.55 "Public Sans",
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+      }
+      main {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 28px 18px 60px;
+      }
+      h1 {
+        font-size: clamp(26px, 4.4vw, 38px);
+        line-height: 1.15;
+        margin: 0 0 10px;
+        letter-spacing: -0.01em;
+      }
+      h2 {
+        font-size: 20px;
+        margin: 42px 0 6px;
+      }
+      .lede {
+        font-size: 18px;
+        color: var(--mut);
+        max-width: 62ch;
+        margin: 0 0 22px;
+      }
+      .m,
+      small,
+      cite,
+      .ax {
+        color: var(--mut);
+      }
+      p {
+        max-width: 70ch;
+      }
+      .kp {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+        margin: 18px 0;
+      }
+      .kp div {
+        background: var(--card);
+        padding: 14px;
+      }
+      .kp b {
+        display: block;
+        font-size: 26px;
+      }
+      .kp span {
+        font-size: 13px;
+        color: var(--mut);
+      }
+      .scroll {
+        overflow-x: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 14.5px;
+      }
+      th {
+        text-align: left;
+        font-weight: 600;
+        color: var(--mut);
+        border-bottom: 1px solid var(--line);
+        padding: 6px 8px 6px 0;
+        font-size: 13px;
+      }
+      td {
+        padding: 7px 8px 7px 0;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+      }
+      .num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      td small {
+        display: block;
+        font-size: 12px;
+      }
+      .nm {
+        min-width: 190px;
+      }
+      .bar {
+        min-width: 150px;
+        position: relative;
+      }
+      .b {
+        display: inline-block;
+        height: 12px;
+        border-radius: 2px;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      .b.app {
+        background: var(--app);
+      }
+      .b.platform {
+        background: var(--platform);
+      }
+      .b.ops {
+        background: var(--ops);
+      }
+      .key span {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        margin: 0 5px 0 14px;
+      }
+      .key {
+        font-size: 13px;
+        color: var(--mut);
+      }
+      .bad {
+        color: var(--bad);
+        font-weight: 600;
+      }
+      .warn {
+        color: var(--warn);
+        font-weight: 600;
+      }
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .ln {
+        fill: none;
+        stroke: var(--app);
+        stroke-width: 2.2;
+      }
+      circle {
+        fill: var(--app);
+      }
+      .g {
+        stroke: var(--line);
+      }
+      .ax {
+        font-size: 11px;
+        fill: var(--mut);
+      }
+      details {
+        border-bottom: 1px solid var(--line);
+        padding: 9px 0;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+      summary:focus-visible {
+        outline: 2px solid var(--app);
+        outline-offset: 3px;
+      }
+      blockquote {
+        margin: 10px 0 4px;
+        padding-left: 12px;
+        border-left: 3px solid var(--line);
+      }
+      cite {
+        display: block;
+        font-size: 12.5px;
+        font-style: normal;
+        margin-top: 2px;
+      }
+      .act li {
+        margin: 6px 0;
+        max-width: 72ch;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>
+        Store rating is 4.64. The damage is a 1-star tail, and most of it is the
+        app.
+      </h1>
+      <p class="lede">
+        1,696 of 5,897 written reviews since Oct 2024 are 1-2 stars. 75% of
+        those with a clear complaint mention nothing about cabs, drivers or
+        support. Only 4% received a developer reply.
+      </p>
+      <div class="kp">
+        <div><b>4.64</b><span>Store rating, 114,871 ratings</span></div>
+        <div>
+          <b>3.75</b
+          ><span>Written-review average (unhappy users write more)</span>
+        </div>
+        <div><b>29%</b><span>Written reviews at 1-2 stars</span></div>
+        <div><b>4.1%</b><span>1-2 star reviews with a reply</span></div>
+        <div><b>4.92</b><span>Ceiling if every 1-2 star became 5</span></div>
+      </div>
+
+      <h2>Where the low ratings come from</h2>
+      <p class="m">
+        Share of 1-2 star reviews. A review can carry more than one theme. About
+        a third have no usable detail (generic sentiment or unrecognised) and
+        are not shown. Uplift assumes half of affected users would move to 4
+        stars once the cause is fixed.
+      </p>
+      <div class="key">
+        <span style="background: var(--app)"></span>App / Product<span
+          style="background: var(--platform)"
+        ></span
+        >Platform<span style="background: var(--ops)"></span>Operations &amp;
+        support
+      </div>
+      <div class="scroll">
+        <table>
+          <tr>
+            <th>Cause and owner</th>
+            <th>Share of 1-2 star</th>
+            <th class="num">Reviews</th>
+            <th class="num">Rating uplift</th>
+          </tr>
+          <tr>
+            <td class="nm">
+              App crashes, slow, won&#x27;t open<small>App (mobile)</small>
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 100%"></span><b>18.6%</b>
+            </td>
+            <td class="num">316</td>
+            <td class="num">+0.019</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Missing features / confusing UI<small>Product (UX)</small>
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 75%"></span><b>14.0%</b>
+            </td>
+            <td class="num">237</td>
+            <td class="num">+0.014</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Booking and scheduling failures<small
+                >App + Platform (booking)</small
+              >
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 73%"></span><b>13.6%</b>
+            </td>
+            <td class="num">230</td>
+            <td class="num">+0.014</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Wrong tracking or ETA<small>Platform (location/ETA)</small>
+            </td>
+            <td class="bar">
+              <span class="b platform" style="width: 47%"></span><b>8.8%</b>
+            </td>
+            <td class="num">150</td>
+            <td class="num">+0.009</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Support / transport desk unresponsive<small
+                >Ops / support desk</small
+              >
+            </td>
+            <td class="bar">
+              <span class="b ops" style="width: 40%"></span><b>7.5%</b>
+            </td>
+            <td class="num">127</td>
+            <td class="num">+0.008</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              OTP not arriving, can&#x27;t log in<small
+                >Platform (backend/auth)</small
+              >
+            </td>
+            <td class="bar">
+              <span class="b platform" style="width: 39%"></span><b>7.3%</b>
+            </td>
+            <td class="num">123</td>
+            <td class="num">+0.007</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Cab late or missing<small>Operations / vendor</small>
+            </td>
+            <td class="bar">
+              <span class="b ops" style="width: 38%"></span><b>7.0%</b>
+            </td>
+            <td class="num">119</td>
+            <td class="num">+0.007</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Forced logouts, OTP on every open<small>App (mobile)</small>
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 34%"></span><b>6.4%</b>
+            </td>
+            <td class="num">108</td>
+            <td class="num">+0.007</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Routing and pickup times<small>Platform (routing engine)</small>
+            </td>
+            <td class="bar">
+              <span class="b platform" style="width: 30%"></span><b>5.7%</b>
+            </td>
+            <td class="num">96</td>
+            <td class="num">+0.006</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Driver conduct and safety<small>Operations / vendor</small>
+            </td>
+            <td class="bar">
+              <span class="b ops" style="width: 23%"></span><b>4.4%</b>
+            </td>
+            <td class="num">74</td>
+            <td class="num">+0.004</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Notification and popup spam<small
+                >App/Product (notifications)</small
+              >
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 20%"></span><b>3.8%</b>
+            </td>
+            <td class="num">64</td>
+            <td class="num">+0.004</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              Seat-belt / camera / permission checks<small
+                >Product (safety flows)</small
+              >
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 6%"></span><b>1.2%</b>
+            </td>
+            <td class="num">20</td>
+            <td class="num">+0.001</td>
+          </tr>
+          <tr>
+            <td class="nm">
+              No-show penalty policy<small>Product / client policy</small>
+            </td>
+            <td class="bar">
+              <span class="b app" style="width: 2%"></span><b>0.3%</b>
+            </td>
+            <td class="num">5</td>
+            <td class="num">+0.000</td>
+          </tr>
+        </table>
+      </div>
+      <p>
+        Fixing the largest cause alone is worth about +0.02 stars. No single fix
+        moves the rating much, which is why the plan also adds more happy-user
+        ratings.
+      </p>
+
+      <h2>Average rating by month</h2>
+      <p class="m">
+        Written reviews only, so it sits below the store rating. Watch the
+        shape, not the level.
+      </p>
+      <svg
+        viewBox="0 0 720 220"
+        role="img"
+        aria-label="Average rating of written reviews by month"
+      >
+        <line x1="40" x2="708" y1="160.7" y2="160.7" class="g" />
+        <text x="34" y="164.7" class="ax" text-anchor="end">3.4</text>
+        <line x1="40" x2="708" y1="131.3" y2="131.3" class="g" />
+        <text x="34" y="135.3" class="ax" text-anchor="end">3.6</text>
+        <line x1="40" x2="708" y1="102.0" y2="102.0" class="g" />
+        <text x="34" y="106.0" class="ax" text-anchor="end">3.8</text>
+        <line x1="40" x2="708" y1="72.7" y2="72.7" class="g" />
+        <text x="34" y="76.7" class="ax" text-anchor="end">4.0</text>
+        <line x1="40" x2="708" y1="43.3" y2="43.3" class="g" />
+        <text x="34" y="47.3" class="ax" text-anchor="end">4.2</text>
+        <polyline
+          points="40.0,115.8 69.0,105.6 98.1,158.6 127.1,151.4 156.2,102.5 185.2,95.8 214.3,102.3 243.3,137.0 272.3,105.2 301.4,120.1 330.4,143.5 359.5,103.3 388.5,118.5 417.6,96.6 446.6,106.7 475.7,110.9 504.7,75.6 533.7,67.6 562.8,70.3 591.8,137.1 620.9,70.6 649.9,123.6 679.0,95.4 708.0,117.2"
+          class="ln"
+        />
+        <circle cx="40.0" cy="115.8" r="3.2">
+          <title>2024-11: 3.71 avg from 221 reviews</title>
+        </circle>
+        <circle cx="69.0" cy="105.6" r="3.2">
+          <title>2024-12: 3.78 avg from 209 reviews</title>
+        </circle>
+        <circle cx="98.1" cy="158.6" r="3.2">
+          <title>2025-01: 3.41 avg from 290 reviews</title>
+        </circle>
+        <circle cx="127.1" cy="151.4" r="3.2">
+          <title>2025-02: 3.46 avg from 229 reviews</title>
+        </circle>
+        <circle cx="156.2" cy="102.5" r="3.2">
+          <title>2025-03: 3.80 avg from 226 reviews</title>
+        </circle>
+        <circle cx="185.2" cy="95.8" r="3.2">
+          <title>2025-04: 3.84 avg from 228 reviews</title>
+        </circle>
+        <circle cx="214.3" cy="102.3" r="3.2">
+          <title>2025-05: 3.80 avg from 257 reviews</title>
+        </circle>
+        <circle cx="243.3" cy="137.0" r="3.2">
+          <title>2025-06: 3.56 avg from 301 reviews</title>
+        </circle>
+        <circle cx="272.3" cy="105.2" r="3.2">
+          <title>2025-07: 3.78 avg from 293 reviews</title>
+        </circle>
+        <circle cx="301.4" cy="120.1" r="3.2">
+          <title>2025-08: 3.68 avg from 241 reviews</title>
+        </circle>
+        <circle cx="330.4" cy="143.5" r="3.2">
+          <title>2025-09: 3.52 avg from 205 reviews</title>
+        </circle>
+        <circle cx="359.5" cy="103.3" r="3.2">
+          <title>2025-10: 3.79 avg from 297 reviews</title>
+        </circle>
+        <circle cx="388.5" cy="118.5" r="3.2">
+          <title>2025-11: 3.69 avg from 160 reviews</title>
+        </circle>
+        <circle cx="417.6" cy="96.6" r="3.2">
+          <title>2025-12: 3.84 avg from 196 reviews</title>
+        </circle>
+        <circle cx="446.6" cy="106.7" r="3.2">
+          <title>2026-01: 3.77 avg from 211 reviews</title>
+        </circle>
+        <circle cx="475.7" cy="110.9" r="3.2">
+          <title>2026-02: 3.74 avg from 207 reviews</title>
+        </circle>
+        <circle cx="504.7" cy="75.6" r="3.2">
+          <title>2026-03: 3.98 avg from 197 reviews</title>
+        </circle>
+        <circle cx="533.7" cy="67.6" r="3.2">
+          <title>2026-04: 4.03 avg from 292 reviews</title>
+        </circle>
+        <circle cx="562.8" cy="70.3" r="3.2">
+          <title>2026-05: 4.02 avg from 247 reviews</title>
+        </circle>
+        <circle cx="591.8" cy="137.1" r="3.2">
+          <title>2026-06: 3.56 avg from 273 reviews</title>
+        </circle>
+        <circle cx="620.9" cy="70.6" r="3.2">
+          <title>2026-07: 4.01 avg from 285 reviews</title>
+        </circle>
+        <circle cx="649.9" cy="123.6" r="3.2">
+          <title>2026-08: 3.65 avg from 242 reviews</title>
+        </circle>
+        <circle cx="679.0" cy="95.4" r="3.2">
+          <title>2026-09: 3.84 avg from 245 reviews</title>
+        </circle>
+        <circle cx="708.0" cy="117.2" r="3.2">
+          <title>2026-10: 3.70 avg from 79 reviews</title>
+        </circle>
+        <text x="40.0" y="212" class="ax" text-anchor="middle">24/11</text>
+        <text x="127.1" y="212" class="ax" text-anchor="middle">25/02</text>
+        <text x="214.3" y="212" class="ax" text-anchor="middle">25/05</text>
+        <text x="301.4" y="212" class="ax" text-anchor="middle">25/08</text>
+        <text x="388.5" y="212" class="ax" text-anchor="middle">25/11</text>
+        <text x="475.7" y="212" class="ax" text-anchor="middle">26/02</text>
+        <text x="562.8" y="212" class="ax" text-anchor="middle">26/05</text>
+        <text x="649.9" y="212" class="ax" text-anchor="middle">26/08</text>
+      </svg>
+
+      <h2>Release check</h2>
+      <p class="m">
+        Share of 1-2 star reviews per app version (versions with 40+ reviews),
+        compared with the 29% baseline. Regression means a clearly higher share;
+        Watch means higher but with limited data.
+      </p>
+      <div class="scroll">
+        <table>
+          <tr>
+            <th>Version</th>
+            <th>First seen</th>
+            <th class="num">Reviews</th>
+            <th class="num">Avg</th>
+            <th class="num">1-2 star</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>12.19.0</td>
+            <td>Sep 2026</td>
+            <td class="num">102</td>
+            <td class="num">3.58</td>
+            <td class="num">35%</td>
+            <td class="warn">Watch</td>
+          </tr>
+          <tr>
+            <td>12.18.1</td>
+            <td>Sep 2026</td>
+            <td class="num">94</td>
+            <td class="num">3.90</td>
+            <td class="num">27%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.18.0</td>
+            <td>Aug 2026</td>
+            <td class="num">65</td>
+            <td class="num">4.11</td>
+            <td class="num">20%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.17.0</td>
+            <td>Aug 2026</td>
+            <td class="num">141</td>
+            <td class="num">3.76</td>
+            <td class="num">30%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.16.0</td>
+            <td>Jul 2026</td>
+            <td class="num">89</td>
+            <td class="num">3.87</td>
+            <td class="num">27%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.15.0</td>
+            <td>Jul 2026</td>
+            <td class="num">83</td>
+            <td class="num">4.04</td>
+            <td class="num">23%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.14.1</td>
+            <td>Jun 2026</td>
+            <td class="num">142</td>
+            <td class="num">3.82</td>
+            <td class="num">27%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.13.1</td>
+            <td>Jun 2026</td>
+            <td class="num">95</td>
+            <td class="num">3.68</td>
+            <td class="num">31%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.12.3</td>
+            <td>May 2026</td>
+            <td class="num">112</td>
+            <td class="num">4.02</td>
+            <td class="num">22%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.12.2</td>
+            <td>May 2026</td>
+            <td class="num">76</td>
+            <td class="num">4.18</td>
+            <td class="num">17%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.12.0</td>
+            <td>Apr 2026</td>
+            <td class="num">70</td>
+            <td class="num">3.96</td>
+            <td class="num">23%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.11.2</td>
+            <td>Apr 2026</td>
+            <td class="num">144</td>
+            <td class="num">3.98</td>
+            <td class="num">23%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.11.1</td>
+            <td>Mar 2026</td>
+            <td class="num">99</td>
+            <td class="num">4.17</td>
+            <td class="num">18%</td>
+            <td class=""></td>
+          </tr>
+          <tr>
+            <td>12.11.0</td>
+            <td>Mar 2026</td>
+            <td class="num">67</td>
+            <td class="num">4.10</td>
+            <td class="num">21%</td>
+            <td class=""></td>
+          </tr>
+        </table>
+      </div>
+
+      <h2>What users say</h2>
+      <p class="m">The most-endorsed single-theme reviews for each cause.</p>
+      <details>
+        <summary>App crashes, slow, won&#x27;t open</summary>
+        <blockquote>
+          most of the time this app functions don&#x27;t even work properly
+          especially when it&#x27;s needed. always has some bugs or the
+          other<cite>1-star, v12.12.2, 1 found helpful</cite>
+        </blockquote>
+        <blockquote>
+          Each time if I want to open I have reinstall. Else the OTPs could be
+          entered, it shows&quot; Empty Box try again Later&quot;<cite
+            >1-star, vnan, 1 found helpful</cite
+          >
+        </blockquote>
+      </details>
+      <details>
+        <summary>Missing features / confusing UI</summary>
+        <blockquote>
+          Doesn&#x27;t allow me to call the driver. And please remove the
+          agreement page on opening the app each and every time. Having it
+          agreed once while installation makes sense<cite
+            >1-star, v11.5.19, 1 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          android app is not optimised properly. somtimes when otp receive no
+          option given to enter otp. i was using ios app nd it was well
+          optimised.<cite>1-star, v11.5.8, 1 found helpful</cite>
+        </blockquote>
+      </details>
+      <details>
+        <summary>Booking and scheduling failures</summary>
+        <blockquote>
+          The app is by far the worst.. when navigation etc is concerned. the
+          number of selections, drop downs etc that need to be selected.. even
+          before you reach the main page...<cite
+            >1-star, v12.11.2, 2 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          its not working in my device having an error message we&#x27;re
+          nothing with out internet connection everytime I&#x27;m trying to book
+          a schedule<cite>1-star, v11.5.8, 1 found helpful</cite>
+        </blockquote>
+      </details>
+      <details>
+        <summary>Wrong tracking or ETA</summary>
+        <blockquote>
+          Have a messaging feature under tracking section so that members and
+          drivers can interact easily instead of calling each &amp; every
+          time.<cite>2-star, v12.11.2, 1 found helpful</cite>
+        </blockquote>
+        <blockquote>
+          Need to improve more regarding tracking of bus. If tracking is not
+          proper employees may loss their trip due to lack of bus tracking
+          information<cite>1-star, v11.5.10, 1 found helpful</cite>
+        </blockquote>
+      </details>
+      <details>
+        <summary>Support / transport desk unresponsive</summary>
+        <blockquote>
+          Not worth it - worst ever employee complaints are ignoring by
+          transportation &amp; Cab owners worst facilities.<cite
+            >2-star, v12.14.1, 1 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          Helpdesk is completely useless, they cut the call without even
+          resolving the issue<cite>1-star, v12.11.2, 1 found helpful</cite>
+        </blockquote>
+      </details>
+      <details>
+        <summary>OTP not arriving, can&#x27;t log in</summary>
+        <blockquote>
+          Unable to login and I am not getting an otp, I am first time user,
+          very frustrating, worst app experience<cite
+            >1-star, vnan, 1 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          Requiring to enter OTP every minute to use this app is very annoying.
+          Especially when in Manyatha Tech park where every sim is weak and no
+          range.<cite>1-star, v12.1.2, 1 found helpful</cite>
+        </blockquote>
+      </details>
+      <details>
+        <summary>Cab late or missing</summary>
+        <blockquote>
+          The security guard did not step out of the car after the drop. Did not
+          come up to the doorstep from the drop location to the doorstep;
+          it&#x27;s more than 200 meters.<cite
+            >1-star, v11.5.17, 1 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          Taytay-Five Neo 615pm sched is always late! Always more than an hour
+          late!<cite>1-star, v12.18.1, 0 found helpful</cite>
+        </blockquote>
+      </details>
+      <details>
+        <summary>Forced logouts, OTP on every open</summary>
+        <blockquote>
+          pathetic to used since we need to login again again<cite
+            >1-star, v12.1.2, 2 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          The app is getting logged out continuously since last week<cite
+            >1-star, v12.1.2, 2 found helpful</cite
+          >
+        </blockquote>
+      </details>
+      <details>
+        <summary>Routing and pickup times</summary>
+        <blockquote>
+          routematic has better service than this.. they dont pickup calls and
+          the vehicle allocated is just for name sake<cite
+            >1-star, v12.18.0, 0 found helpful</cite
+          >
+        </blockquote>
+        <blockquote>
+          This has terrible routing - picks the wrong and longer route<cite
+            >1-star, v12.16.0, 0 found helpful</cite
+          >
+        </blockquote>
+      </details>
+
+      <h2>Limits</h2>
+      <ul class="act">
+        <li>
+          Themes are tagged by keyword rules and checked by hand on a sample;
+          they will miss complaints in some languages (including
+          Filipino-English mixes).
+        </li>
+        <li>
+          Reviews are a small, self-selected slice of 114,871 ratings. Theme
+          shares are applied to all low ratings as an assumption.
+        </li>
+        <li>
+          Reviews cannot show root cause. Each cause here is a lead for
+          engineering to confirm in logs.
+        </li>
+      </ul>
+      <p class="m">
+        Generated 12 Oct 2026. Rebuild with <code>build_dashboard.py</code>.
+      </p>
+    </main>
+  </body>
+</html>
